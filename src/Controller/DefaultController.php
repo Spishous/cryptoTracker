@@ -134,7 +134,8 @@ class DefaultController extends AbstractController
             $val=($hist!=null)?CryptoManager::usdToEur($hist->getSum()):$val;
             $datasets[]=$val;
         }
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        return new Response('<body>'.implode(",", $datasets).'</body>');
+        /*$chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
             'labels' => $labels,
             'datasets' => [
@@ -145,7 +146,7 @@ class DefaultController extends AbstractController
                     'data' => $datasets,
                 ]
             ],
-        ]);
+        ]);*/
 
         return $this->render("app/preview.html.twig", [
             'chart' => $chart,
