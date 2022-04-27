@@ -1,0 +1,1 @@
+{"version":1,"defects":{"PHPUnit\\Framework\\TestCase\\coinMarketAPITest::testMapAPI":4,"PHPUnit\\Framework\\TestCase\\coinMarketAPITest::testSearchByName":4},"times":{"PHPUnit\\Framework\\TestCase\\coinMarketAPITest::testMapAPI":0.007,"PHPUnit\\Framework\\TestCase\\coinMarketAPITest::testSearchByName":0.205}}

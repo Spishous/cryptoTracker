@@ -1,0 +1,50 @@
+{% extends 'templates/Default.html.twig' %}
+
+{% block title %}Crypto Tracker{% endblock %}
+
+
+{% block header %}
+    <div class="space-between">
+        <h1 class="logo">Crypto Tracker</h1>
+        <div class="space-button">
+        {#<span id="edit" class="button">
+            <i class="fi-ss fi-pencil"></i>
+        </span>#}
+            <span id="add">
+            <a href="{{ path('add') }}" class="button">
+                <i class="fi-ss fi-plus"></i>
+            </a>
+        </span>
+        </div>
+    </div>
+
+{% endblock %}
+{% block body %}
+    <a class="balance" href="{{ path('preview') }}">
+        <div id="balance">
+            {{gain|formatToEur}}
+            <span class="act-percentage {{ percentage|percentageClass }}">({{ percentage|formatToPercent }})</span>
+        </div>
+    </a>
+    <main>
+    <ul class="act-list">
+        {% if list %}
+            {% for row in list %}
+                <li>
+                    <a class="act-row" href="{{ path('remove') }}?id={{ row.id }}">
+                        <div class="space">
+                            <img src="{{ row.img }}" alt="{{ row.name }}">
+                            <span class="act-short">{{ row.name }}</span>
+                            <span class="act-name">{{ row.symbol }}</span>
+                        </div>
+                        <span class="act-percentage {{ row.percentage|percentageClass }}">{{ row.percentage|formatToPercent }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+            {% else %}
+            <p>Aucune action en cours</p>
+            <p>(Cliquer sur "+" pour acheter une action)</p>
+        {% endif %}
+    </ul>
+    </main>
+{% endblock %}

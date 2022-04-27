@@ -1,0 +1,98 @@
+{% extends 'templates/Default.html.twig' %}
+
+{% block title %}Ajouter une transaction{% endblock %}
+
+{% block header %}
+    <span id="exit">
+        <a href="{{ path('home') }}" class="button">
+            <i class="fi-ss fi-cross"></i>
+        </a>
+    </span>
+    <h1>Ajouter une transaction</h1>
+    <span></span>
+{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="script/getPrice.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+        selectTarget=document.querySelector("select[name=crypto]");
+        quantityTarget=document.querySelector("input[name=quantity]");
+        priceTarget=document.querySelector("input[name=price]");
+        quoteTarget=document.querySelector("input[name=quote]");
+        selectChanged();
+        isValid(quantityTarget.value)
+        quantityTarget.addEventListener('input', function () {
+            setPrice()
+            isValid(quantityTarget.value)
+            isValid(priceTarget.value)
+        })
+
+        priceTarget.addEventListener('input',function(){
+            setQuantity()
+            isValid(quantityTarget.value)
+            isValid(priceTarget.value)
+        })
+
+
+        function selectChanged(){
+            if(currentId!==selectTarget.value){
+                currentId=selectTarget.value;
+                getLatestQuote().then(data=>{
+                    currentQuote=data;
+                    quoteTarget.value=data;
+                    setPrice();
+                })
+            }
+        }
+        function setQuantity(){
+            quantityTarget.value=priceTarget.value/currentQuote;
+        }
+        function setPrice(){
+            priceTarget.value=quantityTarget.value*currentQuote;
+        }
+        function isValid(value) {
+            try {
+                if (!parseInt(value) || parseInt(value) < 0) {
+                    document.querySelector('input[type=submit]').classList.add("disabled");
+                } else {
+                    document.querySelector('input[type=submit]').classList.remove("disabled");
+                }
+            } catch (e) {
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <main>
+    <form method="post">
+        <label>
+            <i class="fi-bs fi-search"></i>
+            <select onchange="selectChanged()" class="js-example-basic-single" placeholder="Sélectionner une crypto" name="crypto">
+                {% for data in list %}
+                    <option value="{{ data.id }}">{{ data.name }} ({{ data.symbol }})</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <img src="image/pile-quantity.svg">
+            <input type="number" min="0" step="any" pattern="/\d+/" placeholder="Quantité" name="quantity" value="1">
+        </label>
+        <label>
+            <i class="fi-bs fi-euro"></i>
+            <input type="number" min="0" step="any" pattern="/\d+/" placeholder="Prix d'achat" name="price">
+        </label>
+        <input type="hidden" name="quote">
+        <input type="submit" value="Ajouter">
+    </form>
+    </main>
+{% endblock %}

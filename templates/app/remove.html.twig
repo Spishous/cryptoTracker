@@ -1,0 +1,106 @@
+{% extends 'templates/Default.html.twig' %}
+
+{% block title %}Supprimer un montant{% endblock %}
+
+{% block header %}
+    <span id="exit">
+        <a href="{{ path('home') }}" class="button">
+            <i class="fi-ss fi-cross"></i>
+        </a>
+    </span>
+    <h1>Supprimer un montant</h1>
+    <span></span>
+{% endblock %}
+{% block javascripts %}
+    <script src="script/getPrice.js"></script>
+    <script>
+        usdEurFactor={{ usdEurFactor }};
+        sellPriceTarget=document.getElementById("sellPrice");
+        gainPriceTarget=document.getElementById('gainPrice');
+        gainPercentageTarget=document.getElementById("gainPercentage");
+        quantityTarget=document.querySelector("input[name=quantity]");
+        closeTarget=document.querySelector("input[name=closeAction]");
+        sumbitTarget=document.querySelector("input[type=submit]");
+        currentId={{ id }};
+        actionQuote={{ quote }};
+        currentQuote= {{ latestQuote }};
+        /*getLatestQuote().then(data=>{
+            currentQuote=data;
+            convertQuantity();
+        })*/
+        document.getElementById('maxQuantity').addEventListener('click',function(e){
+            e.preventDefault();
+            disableElement(true,this)
+            quantityTarget.value=quantityTarget.getAttribute('max');
+            sumbitTarget.classList.remove('disabled');
+            closeTarget.value=true;
+            convertQuantity();
+        })
+        quantityTarget.addEventListener('input',function(){
+            validQuantity();
+            convertQuantity();
+        })
+        validQuantity();
+        convertQuantity();
+        function validQuantity(){
+            disableElement(false,document.getElementById('maxQuantity'))
+            if(parseFloat(quantityTarget.value)<0){
+                quantityTarget.value=0;
+            }
+            if(parseFloat(quantityTarget.value)>=quantityTarget.getAttribute("max")){
+                disableElement(true,document.getElementById('maxQuantity'))
+                quantityTarget.value=quantityTarget.getAttribute('max');
+                closeTarget.value=true;
+            }else{
+                closeTarget.value=false;
+            }
+            if(parseFloat(quantityTarget.value)===0){
+                sumbitTarget.classList.add('disabled')
+            }else{
+                sumbitTarget.classList.remove('disabled')
+            }
+        }
+        function disableElement(bool,element){
+            if(bool){
+                element.classList.add('disabled');
+            }else{
+                element.classList.remove('disabled');
+            }
+        }
+        function convertQuantity(){
+            let quantity=parseFloat(quantityTarget.value);
+            if(isNaN(quantity)) quantity=0;
+            sellPriceTarget.innerHTML= quantity+" quantité(s) <b>soit</b> "+get2Decimal(currentQuote*quantity*usdEurFactor)+" €";
+            gainPriceTarget.innerText=get2Decimal((currentQuote*quantity*usdEurFactor*{{ percentage}})/100).toString()
+        }
+    </script>
+{% endblock %}
+{% block body %}
+    <main>
+        <form method="post">
+            <label disabled="true">
+                <i class="fi-bs fi-search"></i>
+                <p>{{ name }} ({{ symbol }})</p>
+            </label>
+            <label>
+                <img src="image/pile-quantity.svg">
+                <input type="number" min="0" max="{{ quantityMax }}" step="any" pattern="/\d+/" placeholder="Quantité" name="quantity" value="{{ quantityMax }}">
+            </label>
+            <div id="info">
+                <span id="sellPrice"></span>
+                <span><b>Gain: </b>
+                    <span class="act-percentage {{ percentage|percentageClass }}">
+                        <span id="gainPrice"></span> €
+                        <span id="gainPercentage"> ({{ percentage|formatToPercent }})</span>
+                    </span>
+
+                </span>
+                <button id="maxQuantity" class="disabled">Quantité max</button>
+            </div>
+
+            <input type="hidden" name="id" value="{{ id }}">
+            <input type="hidden" name="closeAction" value="true">
+            <input type="submit" value="Supprimer">
+        </form>
+    </main>
+{% endblock %}
