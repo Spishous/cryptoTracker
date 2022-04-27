@@ -46,11 +46,12 @@
         function selectChanged(){
             if(currentId!==selectTarget.value){
                 currentId=selectTarget.value;
-                getLatestQuote().then(data=>{
+                let callback=(data)=>{
                     currentQuote=data;
                     quoteTarget.value=data;
                     setPrice();
-                })
+                }
+                getLatestQuote(currentId,callback);
             }
         }
         function setQuantity(){
