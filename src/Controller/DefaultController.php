@@ -122,7 +122,6 @@ class DefaultController extends AbstractController
      */
     public function preview(ChartBuilderInterface $chartBuilder,HistoricRepository $historicRepository): Response
     {
-        return new Response('<body>testest</body>');
         $delay="day";
         $nStep=8;
         $labels=[];
