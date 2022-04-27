@@ -31,7 +31,7 @@
         {% if list %}
             {% for row in list %}
                 <li>
-                    <a class="act-row" href="{{ path('remove') }}?id={{ row.id }}">
+                    <a class="act-row" href="{{ path('remove',{id:row.id}) }}">
                         <div class="space">
                             <img src="{{ row.img }}" alt="{{ row.name }}">
                             <span class="act-short">{{ row.name }}</span>

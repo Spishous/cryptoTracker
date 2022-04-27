@@ -6,12 +6,12 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="image/logo.png">
+        <link rel="icon" href="{{ asset('image/logo.png') }}">
 
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/uicons.css">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/uicons.css') }}">
     </head>
     <body>
         <header>

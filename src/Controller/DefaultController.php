@@ -77,10 +77,9 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/remove", methods={"POST"})
+     * @Route("/remove/{id}", methods={"POST"}, requirements={"id"="\d+"})
      */
-    public function _remove(Request $request, CryptoManager $balance, CoinMarketAPI $coinMarketAPI){
-        $id=$request->request->getInt('id');
+    public function _remove($id,Request $request, CryptoManager $balance, CoinMarketAPI $coinMarketAPI){
         $quantity=$request->request->get('quantity');
         $closeAction=$request->request->getBoolean('closeAction');
 
@@ -90,11 +89,10 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/remove", name="remove", methods={"GET"})
+     * @Route("/remove/{id}", name="remove", requirements={"id"="\d+"})
      */
-    public function remove(Request $request,BalanceCoinRepository $balanceCoinRepository,CoinMarketAPI $coinMarketAPI): Response
+    public function remove($id,Request $request,BalanceCoinRepository $balanceCoinRepository,CoinMarketAPI $coinMarketAPI): Response
     {
-        $id=$request->query->getInt('id');
         if($id===0){
             return $this->redirectToRoute('home');
         }

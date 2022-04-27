@@ -6,9 +6,9 @@
 {#    {{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 {% block javascripts %}
-    <script src="/script/runtime.js" defer=""></script>
-    <script src="/script/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_symfony_ux-chartjs_di-dd2a87.js" defer=""></script>
-    <script src="/script/app.js" defer=""></script>
+    <script src="{{ asset('script/runtime.js') }}" defer=""></script>
+    <script src="{{ asset('script/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_symfony_ux-chartjs_di-dd2a87.js') }}" defer=""></script>
+    <script src="{{ asset('script/app.js') }}" defer=""></script>
 {#    {{ encore_entry_script_tags('app') }}#}
 {% endblock %}
 {% block header %}

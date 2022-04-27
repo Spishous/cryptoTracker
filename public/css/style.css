@@ -1,5 +1,5 @@
 @font-face {font-family:"Akzidenz-Grotesk BQ"; src:url("../font/AkzidenzGrotesk-Medium.woff") format("woff")}
-:root {--primary:#100f0f;--secondary:#efefef;--color3:#1fc36c;--grey:#212121}
+:root {--primary:#100f0f;--secondary:#efefef;--color3:#1fc36c;--grey:#2e2e2e}
 body {text-align: center;background:var(--primary);color:var(--secondary);font-family:'Roboto', sans-serif;font-size:16px;margin:0;top:0;bottom:0;position:absolute;left:0;right:0;display:flex;flex-direction:column}
 .logo {font-family:"Akzidenz-Grotesk BQ", sans-serif;font-weight:normal}
 h1 {margin:0;font-size:1em}
@@ -46,7 +46,7 @@ form label p,form input[type=text],form input[type=number],select {margin-left:.
 #info {display:flex;flex-direction:column;text-align:start;margin-left:2em}
 form label[disabled] {background:#1f1f1f}
 form label {overflow:hidden;border:1px solid grey;border-radius:2px;display:flex;align-items:center;margin:1em;padding-left:.8em;color:gray;font-size:14px;height:2.8em}
-input[type="submit"],form button {margin:auto 2em 2em;text-transform:uppercase;font-weight:600;font-family:sans-serif;padding:1.2em;cursor:pointer;background:var(--color3);border:none;border-radius:5px;color: var(--primary);}
+input[type="submit"],form button {margin:auto 2em 2em;text-transform:uppercase;font-weight:600;font-family:sans-serif;cursor:pointer;background:var(--color3);border:none;border-radius:5px;color: var(--primary);height: 45px;}
 input[type="submit"]:hover, form button:hover {background:#27d996;display:block;}
 form button {padding:.8em;margin:1em -0.5em;width:15em;font-size:12px}
 input.disabled[type="submit"],form button.disabled {background:grey;pointer-events:none;cursor:not-allowed}

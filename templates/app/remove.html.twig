@@ -12,8 +12,9 @@
     <span></span>
 {% endblock %}
 {% block javascripts %}
-    <script src="script/getPrice.js"></script>
+    <script src="{{ asset('script/getPrice.js') }}"></script>
     <script>
+        url="{{ absolute_url(path('home')) }}crypto-api/";
         usdEurFactor={{ usdEurFactor }};
         sellPriceTarget=document.getElementById("sellPrice");
         gainPriceTarget=document.getElementById('gainPrice');
@@ -54,7 +55,7 @@
             }else{
                 closeTarget.value=false;
             }
-            if(parseFloat(quantityTarget.value)===0){
+            if(parseFloat(quantityTarget.value)===0||!isNaN(quantityTarget.value)){
                 sumbitTarget.classList.add('disabled')
             }else{
                 sumbitTarget.classList.remove('disabled')
@@ -70,8 +71,8 @@
         function convertQuantity(){
             let quantity=parseFloat(quantityTarget.value);
             if(isNaN(quantity)) quantity=0;
-            sellPriceTarget.innerHTML= quantity+" quantité(s) <b>soit</b> "+get2Decimal(currentQuote*quantity*usdEurFactor)+" €";
-            gainPriceTarget.innerText=get2Decimal((currentQuote*quantity*usdEurFactor*{{ percentage}})/100).toString()
+            sellPriceTarget.innerHTML= quantity+" quantité(s) <b>soit</b> "+getToDecimal(currentQuote*quantity*usdEurFactor)+" €";
+            gainPriceTarget.innerText=getToDecimal((currentQuote*quantity*usdEurFactor*{{ percentage}})/100).toString()
         }
     </script>
 {% endblock %}
@@ -83,7 +84,7 @@
                 <p>{{ name }} ({{ symbol }})</p>
             </label>
             <label>
-                <img src="image/pile-quantity.svg">
+                <img src="{{ asset('image/pile-quantity.svg') }}">
                 <input type="number" min="0" max="{{ quantityMax }}" step="any" pattern="/\d+/" placeholder="Quantité" name="quantity" value="{{ quantityMax }}">
             </label>
             <div id="info">
@@ -98,7 +99,6 @@
                 <button id="maxQuantity" class="disabled">Quantité max</button>
             </div>
 
-            <input type="hidden" name="id" value="{{ id }}">
             <input type="hidden" name="closeAction" value="true">
             <input type="submit" value="Supprimer">
         </form>
