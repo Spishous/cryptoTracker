@@ -147,8 +147,6 @@ class DefaultController extends AbstractController
             ],
         ]);
 
-        return new Response('<body>5</body>');
-
         return $this->render("app/preview.html.twig", [
             'chart' => $chart,
         ]);
