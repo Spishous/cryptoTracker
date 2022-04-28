@@ -137,7 +137,7 @@ class DefaultController extends AbstractController
             'labels' => $labels,
             'datasets' => [
                 [
-                    'label' => 'CryptoManager (€)',
+                    'label' => 'Gains (€)',
                     'backgroundColor' => '#1fc36c',
                     'borderColor' => '#1fc36c',
                     'data' => $datasets,
