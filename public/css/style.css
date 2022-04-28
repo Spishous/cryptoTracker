@@ -62,6 +62,9 @@ main {position:relative;display:flex;flex-direction:column;flex:1;max-width:500p
 .select2-container--default .select2-results__option--selected {background:var(--color3)!important}
 .act-percentage {color:var(--color3)}
 .act-percentage.gain-lose {color:#c63b3b}
+.select2-hidden-accessible {
+    pointer-events: none;
+}
 @media screen and (max-width:400px){
     .act-list {margin: 1em}
 }
