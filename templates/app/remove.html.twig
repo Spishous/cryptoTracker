@@ -54,7 +54,7 @@
             }else{
                 closeTarget.value=false;
             }
-            if(parseFloat(quantityTarget.value)===0||isNaN(quantityTarget.value)){
+            if(parseFloat(quantityTarget.value)===0||isNaN(parseFloat(quantityTarget.value))){
                 sumbitTarget.classList.add('disabled')
             }else{
                 sumbitTarget.classList.remove('disabled')
