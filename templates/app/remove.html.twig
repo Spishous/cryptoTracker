@@ -14,7 +14,6 @@
 {% block javascripts %}
     <script src="{{ asset('script/getPrice.js') }}"></script>
     <script>
-        url="{{ absolute_url(path('home')) }}crypto-api/";
         usdEurFactor={{ usdEurFactor }};
         sellPriceTarget=document.getElementById("sellPrice");
         gainPriceTarget=document.getElementById('gainPrice');

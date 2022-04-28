@@ -5,7 +5,7 @@ function getLatestQuote(currentId2=currentId,callback){
     xhr.open("GET", url+currentId2);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onload = ()=>{
-        let result=xhr.response[currentId2]['quote']['USD']['price'];
+        let result=JSON.parse(xhr.response)[currentId2]['quote']['USD']['price'];
         callback(result);
     }
     xhr.send();
